@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Project4Work.iml" filepath="$PROJECT_DIR$/Project4Work.iml" />
+      <module fileurl="file://$PROJECT_DIR$/carplatelist/app.iml" filepath="$PROJECT_DIR$/carplatelist/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/carplatelist/carplatelist.iml" filepath="$PROJECT_DIR$/carplatelist/carplatelist.iml" />
+    </modules>
+  </component>
+</project>

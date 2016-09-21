@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">carplatelist</string>
+    <string name="car_plate">车型：</string>
+</resources>
