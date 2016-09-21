@@ -3,4 +3,4 @@
 ## carplatelist 
 用来选择车型，车系的模块。<br/>
 效果图<br/>
-[](http://oducsmjjj.bkt.clouddn.com/carplatelist.gif)
+![](http://oducsmjjj.bkt.clouddn.com/carplatelist.gif)
