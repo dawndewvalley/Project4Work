@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">FluxDemo</string>
+
+    //登录
+    <string name="accout">账户</string>
+    <string name="pwd">密码</string>
+    <string name="protocol">用户协议书</string>
+    <string name="login">登录</string>
+    <string name="tip_account_error">请输入正确的手机号</string>
+    <string name="tip_pwd_error">请输入6-18位的密码</string>
+    <string name="tip_protocol_error">请确认用户协议书</string>
+
+</resources>
