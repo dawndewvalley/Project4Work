@@ -23,9 +23,8 @@ public  abstract class Store {
     public abstract StoreChangeEvent changeEvent();
 
     public abstract void onAction(Action action);
-    public class   StoreChangeEvent<T>{
+    public class   StoreChangeEvent{
         public int type;
-        public T obj;
     }
 
 }

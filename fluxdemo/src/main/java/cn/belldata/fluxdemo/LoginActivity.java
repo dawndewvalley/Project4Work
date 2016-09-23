@@ -33,20 +33,16 @@ public class LoginActivity extends BaseActivity {
     @InjectView(R.id.cb_login)
     CheckBox cbLogin;
 
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
     }
 
     @Override
     protected Store initStore() {
         return new LoginStore();
     }
-
 
     @OnClick({R.id.btn_login})
     public void onClick(View view) {

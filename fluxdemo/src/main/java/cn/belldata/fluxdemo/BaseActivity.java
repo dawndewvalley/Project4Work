@@ -20,11 +20,9 @@ import cn.belldata.fluxdemo.flux.stores.Store;
  */
 public abstract class  BaseActivity extends AppCompatActivity implements OnStoreChangeEvent {
     private ProgressDialog loadingdialog;
-
     protected Dispatcher dispatcher;
     protected ActionsCreator actionsCreator;
     protected Store store;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,7 +39,6 @@ public abstract class  BaseActivity extends AppCompatActivity implements OnStore
     @Override
     protected void onStart() {
         super.onStart();
-
         actionsCreator=ActionsCreator.get(dispatcher);
         store=initStore();
         if(store!=null) {
@@ -77,21 +74,21 @@ public abstract class  BaseActivity extends AppCompatActivity implements OnStore
         int type=event.type;
         switch (type){
             case ActionType.ACTION_CONNECT_START:
+                //TODO:显示加载框
                 onLoading();
                 break;
             case ActionType.ACTION_CONNECT_FAIL:
-
+                //TODO:提示网络请求失败
                 break;
             case ActionType.ACTION_CONNECT_INVALID:
-
+                //TODO:用户已在其他地方上线，让用户强退
                 break;
             case ActionType.ACTION_CONNECT_ERROR:
+                //TODO:网络不可用
             default:
-                onEvent(event);
+                onEvent(event);// 其他具体的事件处理
                 break;
         }
-
-
     }
 
     protected void onLoading() {

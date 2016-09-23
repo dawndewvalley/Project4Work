@@ -25,10 +25,6 @@ public class ActionsCreator {
         return instance;
     }
 
-    public void sendMessage(String message) {
-        dispatcher.dispatch(new MessageAction(ActionType.ACTION_NEW_MESSAGE, message));
-    }
-
     //联网事件
     public void sendConnectStart(){
         dispatcher.dispatch(new ConnectAction(ActionType.ACTION_CONNECT_START,""));

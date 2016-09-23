@@ -14,25 +14,26 @@ import cn.belldata.fluxdemo.model.User;
  */
 public class LoginStore extends Store {
 
-
     private User usr;
-    StoreChangeEvent<User> event;
+    private StoreChangeEvent event;
 
     @Override
     public StoreChangeEvent changeEvent() {
         return event;
     }
 
+    public User getUsr(){return usr;}
+
     @Override
     @Subscribe
     public void onAction(Action action) {
-        Log.e("login action", "onAction: "+action.getType());
-    int type=action.getType();
-        event=new StoreChangeEvent<>();
+
+        int type=action.getType();
+        event=new StoreChangeEvent();
         event.type=type;
-        /**/
+        if(action.getType()==ActionType.ACTION_CONNECT_SUCCESS){
+            usr= (User) action.getData();
+        }
         emitStoreChange();
     }
-
-
 }

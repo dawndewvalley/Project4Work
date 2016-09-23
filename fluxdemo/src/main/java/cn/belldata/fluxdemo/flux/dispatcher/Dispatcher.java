@@ -21,7 +21,7 @@ public class Dispatcher {
         }
         return  instance;
     }
-    Dispatcher(){}
+
 
     public void register(final Store store){
         stores.add(store);

@@ -5,18 +5,13 @@ package cn.belldata.fluxdemo.flux.actions;
  */
 public class Action<T> {
 
-
-
     private final int type;
     private final T data;
-
-
 
     Action(int type,T data){
         this.data=data;
         this.type=type;
     }
-
 
     public int getType() {
         return type;
