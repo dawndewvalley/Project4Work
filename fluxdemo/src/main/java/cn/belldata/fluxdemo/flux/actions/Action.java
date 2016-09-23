@@ -8,7 +8,7 @@ public class Action<T> {
     private final int type;
     private final T data;
 
-    Action(int type,T data){
+    public Action(int type,T data){
         this.data=data;
         this.type=type;
     }

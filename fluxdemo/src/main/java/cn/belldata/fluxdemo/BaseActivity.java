@@ -14,6 +14,7 @@ import cn.belldata.fluxdemo.flux.actions.ActionType;
 import cn.belldata.fluxdemo.flux.dispatcher.ActionsCreator;
 import cn.belldata.fluxdemo.flux.dispatcher.Dispatcher;
 import cn.belldata.fluxdemo.flux.stores.Store;
+import cn.belldata.fluxdemo.utils.ToastUtils;
 
 /**
  * Created by android on 2016/9/22.
@@ -27,18 +28,19 @@ public abstract class  BaseActivity extends AppCompatActivity implements OnStore
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dispatcher=Dispatcher.get();
+
     }
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
         super.setContentView(layoutResID);
         ButterKnife.inject(this);
+        initDependencies();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+
+    private void initDependencies() {
+        dispatcher=Dispatcher.get();
         actionsCreator=ActionsCreator.get(dispatcher);
         store=initStore();
         if(store!=null) {
@@ -53,16 +55,16 @@ public abstract class  BaseActivity extends AppCompatActivity implements OnStore
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onStop() {
+        super.onStop();
         store.unregister(this);
     }
 
     protected abstract Store initStore();
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
         if(store!=null) {
             dispatcher.unregister(store);
         }
@@ -74,11 +76,13 @@ public abstract class  BaseActivity extends AppCompatActivity implements OnStore
         int type=event.type;
         switch (type){
             case ActionType.ACTION_CONNECT_START:
-                //TODO:显示加载框
+                //显示加载框
                 onLoading();
                 break;
             case ActionType.ACTION_CONNECT_FAIL:
-                //TODO:提示网络请求失败
+                //提示网络请求失败
+                String tip_fail=store.getTip_fail();
+                ToastUtils.show(this,tip_fail);
                 break;
             case ActionType.ACTION_CONNECT_INVALID:
                 //TODO:用户已在其他地方上线，让用户强退

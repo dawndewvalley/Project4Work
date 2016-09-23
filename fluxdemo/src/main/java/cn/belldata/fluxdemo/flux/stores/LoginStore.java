@@ -1,12 +1,9 @@
 package cn.belldata.fluxdemo.flux.stores;
 
-import android.util.Log;
-
 import org.greenrobot.eventbus.Subscribe;
 
 import cn.belldata.fluxdemo.flux.actions.Action;
 import cn.belldata.fluxdemo.flux.actions.ActionType;
-import cn.belldata.fluxdemo.flux.actions.LoginAction;
 import cn.belldata.fluxdemo.model.User;
 
 /**
@@ -31,8 +28,13 @@ public class LoginStore extends Store {
         int type=action.getType();
         event=new StoreChangeEvent();
         event.type=type;
-        if(action.getType()==ActionType.ACTION_CONNECT_SUCCESS){
-            usr= (User) action.getData();
+        switch (type){
+            case ActionType.ACTION_CONNECT_SUCCESS:
+                usr= (User) action.getData();
+                break;
+            case ActionType.ACTION_CONNECT_FAIL:
+                tip_fail=(String)action.getData();
+                break;
         }
         emitStoreChange();
     }
