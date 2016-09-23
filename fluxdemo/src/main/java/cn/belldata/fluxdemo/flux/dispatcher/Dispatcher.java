@@ -1,12 +1,12 @@
-package cn.belldata.fluxdemo.dispatcher;
+package cn.belldata.fluxdemo.flux.dispatcher;
 
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.belldata.fluxdemo.actions.Action;
-import cn.belldata.fluxdemo.stores.Store;
+import cn.belldata.fluxdemo.flux.actions.Action;
+import cn.belldata.fluxdemo.flux.stores.Store;
 
 /**
  * Created by android on 2016/9/22.
@@ -33,7 +33,7 @@ public class Dispatcher {
         post(action);
     }
     private  void post(final Action action){
-        Log.i("action",action.getType());
+        Log.i("action",action.getType()+"");
         for(Store store:stores){
             store.onAction(action);
         }

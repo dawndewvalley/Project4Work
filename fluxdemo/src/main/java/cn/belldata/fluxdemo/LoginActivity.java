@@ -1,7 +1,6 @@
 package cn.belldata.fluxdemo;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
@@ -13,11 +12,12 @@ import org.greenrobot.eventbus.Subscribe;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-import cn.belldata.fluxdemo.dispatcher.ActionsCreator;
-import cn.belldata.fluxdemo.dispatcher.Dispatcher;
+import cn.belldata.fluxdemo.flux.actions.ActionType;
+import cn.belldata.fluxdemo.flux.dispatcher.ActionsCreator;
+import cn.belldata.fluxdemo.flux.dispatcher.Dispatcher;
+import cn.belldata.fluxdemo.flux.stores.Store;
 import cn.belldata.fluxdemo.model.User;
-import cn.belldata.fluxdemo.stores.LoginStore;
-import cn.belldata.fluxdemo.stores.Store;
+import cn.belldata.fluxdemo.flux.stores.LoginStore;
 import cn.belldata.fluxdemo.utils.ToastUtils;
 
 /**
@@ -33,35 +33,20 @@ public class LoginActivity extends BaseActivity {
     @InjectView(R.id.cb_login)
     CheckBox cbLogin;
 
-    private Dispatcher dispatcher;
-    private ActionsCreator actionsCreator;
-    private LoginStore store;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ButterKnife.inject(this);
-        initDependencies();
-    }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        store.register(this);
+
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        store.unregister(this);
+    protected Store initStore() {
+        return new LoginStore();
     }
 
-    private void initDependencies() {
-        dispatcher = Dispatcher.get();
-        actionsCreator = ActionsCreator.get(dispatcher);
-        store = new LoginStore();
-        dispatcher.register(store);
-    }
 
     @OnClick({R.id.btn_login})
     public void onClick(View view) {
@@ -83,18 +68,22 @@ public class LoginActivity extends BaseActivity {
         actionsCreator.sendUsertoCheck(usr);
     }
 
-    @Subscribe
-    public void onAccountError(LoginStore.AccountErrorEvent event){
-        etAccount.setError(getString(R.string.tip_account_error));
-    }
 
-    @Subscribe
-    public void onPwdError(LoginStore.PwdErrorEvent event){
-    etPwd.setError(getString(R.string.tip_pwd_error));
-    }
+    @Override
+    public void onEvent(Store.StoreChangeEvent event) {
 
-    @Subscribe
-    public void onUnCheck(LoginStore.UnCheckEvent event){
-        ToastUtils.show(this,getString(R.string.tip_protocol_error));
+        int type=event.type;
+        switch (type){
+            case ActionType.ACTION_LOGIN_ACCOUNT_INVALID:
+                etAccount.setError(getString(R.string.tip_account_error));
+                break;
+            case ActionType.ACTION_LOGIN_PROTOCOL_UNCHECK:
+                ToastUtils.show(this,getString(R.string.tip_protocol_error));
+                break;
+            case ActionType.ACTION_LOGIN_PWD_INVALID:
+                etPwd.setError(getString(R.string.tip_pwd_error));
+                break;
+            default:
+        }
     }
 }
